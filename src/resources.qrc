@@ -1,0 +1,7 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/image">
+        <file>../image/gear.png</file>
+        <file>../image/grass.png</file>
+    </qresource>
+</RCC>
