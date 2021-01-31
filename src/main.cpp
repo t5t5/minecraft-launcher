@@ -5,7 +5,13 @@
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
-	ml::Launcher w;
-	w.show();
+
+
+	ml::DataModelPointer model = ml::DataModelPointer::create();
+
+	ml::Launcher launcher;
+	launcher.setModel(model);
+	launcher.show();
+
 	return a.exec();
 }

@@ -19,14 +19,14 @@
   </property>
   <layout class="QFormLayout" name="formLayout">
    <item row="0" column="0">
-    <widget class="QLabel" name="userNameLabel">
+    <widget class="QLabel" name="loginLabel">
      <property name="text">
-      <string>User name:</string>
+      <string>Login:</string>
      </property>
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QComboBox" name="userNameComboBox">
+    <widget class="QComboBox" name="loginComboBox">
      <property name="editable">
       <bool>true</bool>
      </property>

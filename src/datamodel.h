@@ -26,13 +26,17 @@ public:
 	virtual ~DataModel() override;
 
 	QString login() const;
+	QStringList logins() const;
 	int memorySize() const;
+	int memorySizeMin() const;
+	int memorySizeMax() const;
 	bool isSystemJava() const;
 	QString pathJava() const;
 	QString parameters() const;
 
 public slots:
 	void setLogin(const QString& login);
+	void setLogins(const QStringList& logins);
 	void setMemorySize(int memorySize);
 	void setIsSystemJava(bool isSystemJava);
 	void setPathJava(const QString& pathJava);
@@ -42,6 +46,8 @@ public slots:
 signals:
 	void userNameChanged(const QString& userName);
 	void memorySizeChanged(int memorySize);
+	void memorySizeMinChanged(int memorySizeMin);
+	void memorySizeMaxChanged(int memorySizeMax);
 	void isSystemJavaChanged(bool isSystemJava);
 	void pathJavaChanged(const QString& pathJava);
 	void parametersChanged(const QString& parameters);

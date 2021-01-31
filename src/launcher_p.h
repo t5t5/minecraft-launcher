@@ -11,6 +11,8 @@
 
 namespace Ui { class Launcher; }
 
+class QIntValidator;
+
 namespace ml
 {
 
@@ -28,6 +30,7 @@ public:
 	void reset();
 
 	Ui::Launcher* ui;
+	QIntValidator* memoryValidator;
 	DataModelPointer model;
 };
 

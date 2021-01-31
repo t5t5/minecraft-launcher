@@ -2,6 +2,8 @@
 #include "launcher_p.h"
 #include "ui_launcher.h"
 
+#include <QIntValidator>
+
 namespace ml
 {
 
@@ -19,10 +21,27 @@ void LauncherPrivate::initialize()
 {
 	QA_Q();
 	ui->setupUi(q);
+
+	memoryValidator = new QIntValidator(q);
+	ui->memoryEdit->setValidator(memoryValidator);
 }
 
 void LauncherPrivate::reset()
 {
+	ui->loginComboBox->clear();
+	if (model) {
+		ui->loginComboBox->addItems(model->logins());
+		ui->loginComboBox->setCurrentText(model->login());
+		ui->memoryEdit->setText(QString::number(model->memorySize()));
+
+		memoryValidator->setBottom(model->memorySizeMin());
+		memoryValidator->setTop(model->memorySizeMax());
+	} else {
+		ui->memoryEdit->setText(QString());
+		ui->memoryEdit->setText("0");
+		memoryValidator->setBottom(0);
+		memoryValidator->setTop(0);
+	}
 }
 
 // ------------------------------------------------------------------------

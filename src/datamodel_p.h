@@ -6,11 +6,22 @@
 #endif
 
 #include <QString>
+#include <QStringList>
 
 #include <Qpe/Qpe>
 
+class QSettings;
+
 namespace ml
 {
+
+enum JavaType
+{
+	UndefinedJava = 0,
+	SystemJava = 1,
+	LocalJava = 2,
+	CustomJava = 3,
+};
 
 class DataModel;
 class DataModelPrivate
@@ -24,9 +35,23 @@ public:
 
 	void initialize();
 
-	QString login;
-	int memorySize;
+	void readSettings();
+	void writeSettings();
+	void setDefaultSettings();
+	bool searchJava(JavaType type);
+	bool searchLocalJava(QString& pathJava);
 
+	QSettings* settings;
+	QString fileName;
+	QString currentDir;
+
+	QString login;
+	QStringList logins;
+	int memorySize;
+	int memorySizeMin;
+	int memorySizeMax;
+
+	JavaType javaType;
 	bool isSystemJava;
 	QString pathJava;
 
