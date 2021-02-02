@@ -10,20 +10,13 @@
 
 #include <Qpe/Qpe>
 
+#include "datamodel.h"
+
 class QSettings;
 
 namespace ml
 {
 
-enum JavaType
-{
-	UndefinedJava = 0,
-	SystemJava = 1,
-	LocalJava = 2,
-	CustomJava = 3,
-};
-
-class DataModel;
 class DataModelPrivate
 {
 	QPE_DECLARE_PUBLIC(DataModel);
@@ -38,7 +31,7 @@ public:
 	void readSettings();
 	void writeSettings();
 	void setDefaultSettings();
-	bool searchJava(JavaType type);
+	bool searchJava(DataModel::JavaType type);
 	bool searchLocalJava(QString& pathJava);
 
 	QSettings* settings;
@@ -51,8 +44,8 @@ public:
 	int memorySizeMin;
 	int memorySizeMax;
 
-	JavaType javaType;
-	bool isSystemJava;
+	DataModel::JavaType javaType;
+//	bool isSystemJava;
 	QString pathJava;
 
 	QString parameters;

@@ -21,9 +21,16 @@ void LauncherPrivate::initialize()
 {
 	QA_Q();
 	ui->setupUi(q);
+	ui->javaSettingsBox->setHidden(true);
+	q->adjustSize();
 
 	memoryValidator = new QIntValidator(q);
 	ui->memoryEdit->setValidator(memoryValidator);
+
+	QObject::connect(
+		ui->settingsButton, &QToolButton::clicked,
+		q, [q] { q->adjustSize(); } );
+
 }
 
 void LauncherPrivate::reset()

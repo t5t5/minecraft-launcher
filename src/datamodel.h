@@ -22,6 +22,14 @@ class DataModel : public QObject
 protected:
 	QScopedPointer<DataModelPrivate> d_ptr;
 public:
+	enum JavaType
+	{
+		UndefinedJava = 0,
+		SystemJava = 1,
+		LocalJava = 2,
+		CustomJava = 3,
+	};
+
 	DataModel(QObject* parent = nullptr);
 	virtual ~DataModel() override;
 
@@ -34,13 +42,18 @@ public:
 	QString pathJava() const;
 	QString parameters() const;
 
+	JavaType javaType() const;
+	bool isJavaValid(ml::DataModel::JavaType javaType) const;
+
 public slots:
 	void setLogin(const QString& login);
 	void setLogins(const QStringList& logins);
 	void setMemorySize(int memorySize);
-	void setIsSystemJava(bool isSystemJava);
+//	void setIsSystemJava(bool isSystemJava);
 	void setPathJava(const QString& pathJava);
 	void setParameters(const QString& parameters);
+
+	void setJavaType(ml::DataModel::JavaType javaType);
 
 	void run();
 signals:
@@ -51,6 +64,9 @@ signals:
 	void isSystemJavaChanged(bool isSystemJava);
 	void pathJavaChanged(const QString& pathJava);
 	void parametersChanged(const QString& parameters);
+
+	void javaTypeChanged(ml::DataModel::JavaType javaType);
+	void javaValidChanged(ml::DataModel::JavaType javaType, bool valid);
 };
 
 using DataModelPointer = QSharedPointer<DataModel>;

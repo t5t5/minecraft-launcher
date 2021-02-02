@@ -32,7 +32,7 @@ static const QLatin1String TEMPLATE_LOCAL_JAVA("%1/%2/bin/java");
 
 DataModelPrivate::DataModelPrivate()
 	: settings(nullptr)
-	, javaType(JavaType::UndefinedJava)
+	, javaType(DataModel::JavaType::UndefinedJava)
 {
 }
 
@@ -57,7 +57,7 @@ void DataModelPrivate::initialize()
 		writeSettings();
 	}
 
-	searchJava(LocalJava);
+	searchJava(DataModel::LocalJava);
 	// TODO: load settings
 	// TODO: java search
 }
@@ -95,19 +95,19 @@ void DataModelPrivate::setDefaultSettings()
 	memorySizeMax = DEFAULT_MEMORY_MAX_SIZE;
 }
 
-bool DataModelPrivate::searchJava(JavaType type)
+bool DataModelPrivate::searchJava(DataModel::JavaType type)
 {
 	bool result = true;
 	QString command;
 	switch (type) {
-	case SystemJava:
+	case DataModel::SystemJava:
 		command = VALUE_JAVA;
 		break;
-	case LocalJava: {
+	case DataModel::LocalJava: {
 		result = searchLocalJava(command);
 		break;
 	}
-	case CustomJava:
+	case DataModel::CustomJava:
 		command = QString("%1/bin/java").arg(pathJava);
 		break;
 	default:
@@ -205,17 +205,17 @@ void DataModel::setMemorySize(int memorySize)
 	d->memorySize = memorySize;
 }
 
-bool DataModel::isSystemJava() const
-{
-	QA_D();
-	return d->isSystemJava;
-}
+//bool DataModel::isSystemJava() const
+//{
+//	QA_D();
+//	return d->isSystemJava;
+//}
 
-void DataModel::setIsSystemJava(bool isSystemJava)
-{
-	QA_D();
-	d->isSystemJava = isSystemJava;
-}
+//void DataModel::setIsSystemJava(bool isSystemJava)
+//{
+//	QA_D();
+//	d->isSystemJava = isSystemJava;
+//}
 
 QString DataModel::pathJava() const
 {
@@ -240,6 +240,7 @@ void DataModel::setParameters(const QString& parameters)
 	QA_D();
 	d->parameters = parameters;
 }
+
 
 void DataModel::run()
 {
