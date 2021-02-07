@@ -31,8 +31,8 @@ public:
 	void readSettings();
 	void writeSettings();
 	void setDefaultSettings();
-	bool searchJava(DataModel::JavaType type);
-	bool searchLocalJava(QString& pathJava);
+	bool searchJava(DataModel::JavaType type) const;
+	bool searchLocalJava(QString& pathJava) const;
 
 	QSettings* settings;
 	QString fileName;

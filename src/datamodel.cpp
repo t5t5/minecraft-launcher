@@ -16,9 +16,10 @@ static const QLatin1String TEMPLATE_FILE_NAME("%1.ini");
 
 static const QLatin1String KEY_LOGIN("main/login");
 static const QLatin1String KEY_LOGINS("main/logins");
-static const QLatin1String KEY_MEMORY("java/memory");
-static const QLatin1String KEY_MEMORY_MIN("java/memoryMin");
-static const QLatin1String KEY_MEMORY_MAX("java/memoryMax");
+static const QLatin1String KEY_JAVA_PATH("java/path");
+static const QLatin1String KEY_JAVA_MEMORY("java/memory");
+static const QLatin1String KEY_JAVA_MEMORY_MIN("java/memoryMin");
+static const QLatin1String KEY_JAVA_MEMORY_MAX("java/memoryMax");
 
 static const int DEFAULT_MEMORY_SIZE = 2048;
 static const int DEFAULT_MEMORY_MIN_SIZE = 1024;
@@ -67,18 +68,20 @@ void DataModelPrivate::readSettings()
 	login = settings->value(KEY_LOGIN).toString();
 	logins = settings->value(KEY_LOGINS).toStringList();
 
-	memorySize = settings->value(KEY_MEMORY, DEFAULT_MEMORY_SIZE).toInt();
-	memorySizeMin = settings->value(KEY_MEMORY_MIN, DEFAULT_MEMORY_MIN_SIZE).toInt();
-	memorySizeMax = settings->value(KEY_MEMORY_MAX, DEFAULT_MEMORY_MAX_SIZE).toInt();
+	pathJava = settings->value(KEY_JAVA_PATH).toString();
+	memorySize = settings->value(KEY_JAVA_MEMORY, DEFAULT_MEMORY_SIZE).toInt();
+	memorySizeMin = settings->value(KEY_JAVA_MEMORY_MIN, DEFAULT_MEMORY_MIN_SIZE).toInt();
+	memorySizeMax = settings->value(KEY_JAVA_MEMORY_MAX, DEFAULT_MEMORY_MAX_SIZE).toInt();
 }
 
 void DataModelPrivate::writeSettings()
 {
 	settings->setValue(KEY_LOGIN, login);
 	settings->setValue(KEY_LOGINS, logins);
-	settings->setValue(KEY_MEMORY, memorySize);
-	settings->setValue(KEY_MEMORY_MIN, memorySizeMin);
-	settings->setValue(KEY_MEMORY_MAX, memorySizeMax);
+	settings->setValue(KEY_JAVA_PATH, pathJava);
+	settings->setValue(KEY_JAVA_MEMORY, memorySize);
+	settings->setValue(KEY_JAVA_MEMORY_MIN, memorySizeMin);
+	settings->setValue(KEY_JAVA_MEMORY_MAX, memorySizeMax);
 }
 
 void DataModelPrivate::setDefaultSettings()
@@ -95,7 +98,7 @@ void DataModelPrivate::setDefaultSettings()
 	memorySizeMax = DEFAULT_MEMORY_MAX_SIZE;
 }
 
-bool DataModelPrivate::searchJava(DataModel::JavaType type)
+bool DataModelPrivate::searchJava(DataModel::JavaType type) const
 {
 	bool result = true;
 	QString command;
@@ -108,7 +111,8 @@ bool DataModelPrivate::searchJava(DataModel::JavaType type)
 		break;
 	}
 	case DataModel::CustomJava:
-		command = QString("%1/bin/java").arg(pathJava);
+//		command = QString("%1/bin/java").arg(pathJava);
+		command = pathJava;
 		break;
 	default:
 		result = false;
@@ -119,7 +123,7 @@ bool DataModelPrivate::searchJava(DataModel::JavaType type)
 	return code == 0;
 }
 
-bool DataModelPrivate::searchLocalJava(QString& pathJava)
+bool DataModelPrivate::searchLocalJava(QString& pathJava) const
 {
 	QDir dir(currentDir);
 	if (!dir.cd(VALUE_JRE)) { return false; }
@@ -235,10 +239,22 @@ QString DataModel::parameters() const
 	return d->parameters;
 }
 
+bool DataModel::isJavaValid(DataModel::JavaType javaType) const
+{
+	QA_D();
+	return d->searchJava(javaType);
+	return true;
+}
+
 void DataModel::setParameters(const QString& parameters)
 {
 	QA_D();
 	d->parameters = parameters;
+}
+
+void DataModel::setJavaType(DataModel::JavaType javaType)
+{
+
 }
 
 

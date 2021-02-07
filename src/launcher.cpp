@@ -43,11 +43,28 @@ void LauncherPrivate::reset()
 
 		memoryValidator->setBottom(model->memorySizeMin());
 		memoryValidator->setTop(model->memorySizeMax());
+
+		ui->localJavaValidLabel->setPixmap(
+			QPixmap(model->isJavaValid(DataModel::LocalJava)
+				? ":/image/image/bullet_green.png"
+				: ":/image/image/bullet_red.png"));
+		ui->systemJavaValidLabel->setPixmap(
+			QPixmap(model->isJavaValid(DataModel::SystemJava)
+				? ":/image/image/bullet_green.png"
+				: ":/image/image/bullet_red.png"));
+		ui->customJavaValidLabel->setPixmap(
+			QPixmap(model->isJavaValid(DataModel::CustomJava)
+				? ":/image/image/bullet_green.png"
+				: ":/image/image/bullet_red.png"));
 	} else {
 		ui->memoryEdit->setText(QString());
 		ui->memoryEdit->setText("0");
 		memoryValidator->setBottom(0);
 		memoryValidator->setTop(0);
+
+		ui->localJavaValidLabel->setPixmap(QPixmap(":/image/image/bullet_red.png"));
+		ui->systemJavaValidLabel->setPixmap(QPixmap(":/image/image/bullet_red.png"));
+		ui->customJavaValidLabel->setPixmap(QPixmap(":/image/image/bullet_red.png"));
 	}
 }
 
