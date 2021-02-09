@@ -5,6 +5,8 @@
 #pragma once
 #endif
 
+#include <QPixmap>
+
 #include <Qpe/Qpe>
 
 #include <ml/DataModel>
@@ -30,6 +32,10 @@ public:
 	void reset();
 
 	Ui::Launcher* ui;
+
+	QPixmap success;
+	QPixmap fail;
+
 	QIntValidator* memoryValidator;
 	DataModelPointer model;
 };

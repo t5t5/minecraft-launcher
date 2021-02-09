@@ -33,7 +33,7 @@ static const QLatin1String TEMPLATE_LOCAL_JAVA("%1/%2/bin/java");
 
 DataModelPrivate::DataModelPrivate()
 	: settings(nullptr)
-	, javaType(DataModel::JavaType::UndefinedJava)
+	, javaType(DataModel::JavaType::AutoJava)
 {
 }
 
@@ -111,7 +111,6 @@ bool DataModelPrivate::searchJava(DataModel::JavaType type) const
 		break;
 	}
 	case DataModel::CustomJava:
-//		command = QString("%1/bin/java").arg(pathJava);
 		command = pathJava;
 		break;
 	default:
@@ -237,6 +236,11 @@ QString DataModel::parameters() const
 {
 	QA_D();
 	return d->parameters;
+}
+
+DataModel::JavaType DataModel::javaType() const
+{
+
 }
 
 bool DataModel::isJavaValid(DataModel::JavaType javaType) const

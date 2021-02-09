@@ -24,7 +24,7 @@ protected:
 public:
 	enum JavaType
 	{
-		UndefinedJava = 0,
+		AutoJava = 0,
 		SystemJava = 1,
 		LocalJava = 2,
 		CustomJava = 3,
